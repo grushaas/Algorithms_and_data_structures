@@ -25,7 +25,7 @@ int* append_to_dynamic_array(int* arr, int& logical_size, int& actual_size, int 
 		}
 	}
 
-	if (logical_size + 1 == actual_size)
+	if (logical_size + 1 == actual_size || logical_size == actual_size)
 	{
 		int* new_arr = new int[actual_size * 2]();
 		actual_size *= 2;
@@ -36,6 +36,8 @@ int* append_to_dynamic_array(int* arr, int& logical_size, int& actual_size, int 
 		new_arr[logical_size] = value;
 		logical_size += 1;
 		arr = new_arr;
+
+		delete[] new_arr;
 		return arr;
 	}
 	else
@@ -79,8 +81,8 @@ int main()
 			std::cout << "Введите элемент для добавления: ";
 			std::cin >> value;
 
-			int* result_arr = append_to_dynamic_array(arr, logical_size, actual_size, value);
-			print_dynamic_array(result_arr, logical_size, actual_size);
+			arr = append_to_dynamic_array(arr, logical_size, actual_size, value);
+			print_dynamic_array(arr, logical_size, actual_size);
 		}
 
 		delete[] arr;
