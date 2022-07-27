@@ -17,14 +17,6 @@ void print_dynamic_array(int* arr, int logical_size, int actual_size)
 
 int* append_to_dynamic_array(int* arr, int& logical_size, int& actual_size, int value)
 {
-	for (int i = 0; i < actual_size; ++i)
-	{
-		if (i > actual_size)
-		{
-				std::cout << "Ошибка: вышли за границы массива!" << std::endl;
-		}
-	}
-
 	if (logical_size + 1 == actual_size || logical_size == actual_size)
 	{
 		int* new_arr = new int[actual_size * 2]();
@@ -35,10 +27,9 @@ int* append_to_dynamic_array(int* arr, int& logical_size, int& actual_size, int 
 		}
 		new_arr[logical_size] = value;
 		logical_size += 1;
-		arr = new_arr;
 
-		delete[] new_arr;
-		return arr;
+		delete[] arr;
+		return new_arr;
 	}
 	else
 	{
@@ -80,11 +71,19 @@ int main()
 		{
 			std::cout << "Введите элемент для добавления: ";
 			std::cin >> value;
-
-			arr = append_to_dynamic_array(arr, logical_size, actual_size, value);
-			print_dynamic_array(arr, logical_size, actual_size);
+			
+			if (value != 0)
+			{
+				arr = append_to_dynamic_array(arr, logical_size, actual_size, value);
+				print_dynamic_array(arr, logical_size, actual_size);
+			}
+			else
+			{
+				std::cout << "Спасибо! Ваш массив: ";
+				print_dynamic_array(arr, logical_size, actual_size);
+				std::cout << "|\nЗавершение работы";
+			}
 		}
-
 		delete[] arr;
 	}
 }
