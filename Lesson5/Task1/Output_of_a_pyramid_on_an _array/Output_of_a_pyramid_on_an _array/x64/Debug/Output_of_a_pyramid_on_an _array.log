@@ -1,2 +1,3 @@
 ﻿  Output_of_a_pyramid_on_an _array.cpp
+C:\My folder\Netology\Homework\Algorithms and data structures\Lessons\Lesson5\Task1\Output_of_a_pyramid_on_an _array\Output_of_a_pyramid_on_an _array\Output_of_a_pyramid_on_an _array.cpp(12,13): warning C4244: return: преобразование "double" в "int", возможна потеря данных
   Output_of_a_pyramid_on_an _array.vcxproj -> C:\My folder\Netology\Homework\Algorithms and data structures\Lessons\Lesson5\Task1\Output_of_a_pyramid_on_an _array\x64\Debug\Output_of_a_pyramid_on_an _array.exe

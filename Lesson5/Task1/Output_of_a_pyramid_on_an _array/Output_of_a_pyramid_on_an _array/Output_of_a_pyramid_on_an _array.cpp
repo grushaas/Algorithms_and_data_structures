@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <cmath>
 
 int parent_index(int* arr, int size, int i)
 {
@@ -6,18 +7,26 @@ int parent_index(int* arr, int size, int i)
 	return value;
 }
 
+int pyramid_level(int* arr, int i)
+{
+	return log2(i + 1);
+}
+
 void print_one_element(int* arr, int size, int i)
 {
 	if (i % 2)
 	{
-		std::cout << "left(" << parent_index(arr, size, i) << ") " << arr[i] << std::endl;
+		std::cout << pyramid_level(arr, i) << " left(" << parent_index(arr, size, i) << ") " << arr[i] << std::endl;
+	}
+	else if (i == 0)
+	{
+		std::cout << pyramid_level(arr, i) << " root " << arr[i] << std::endl;
 	}
 	else
 	{
-		std::cout << "right(" << parent_index(arr, size, i) << ") " << arr[i] << std::endl;
+		std::cout << pyramid_level(arr, i) << " right(" << parent_index(arr, size, i) << ") " << arr[i] << std::endl;
 	}
 }
-
 
 void print_pyramid(int* arr, int size)
 {
@@ -25,25 +34,7 @@ void print_pyramid(int* arr, int size)
 
 	for (int i = 0; i < size; ++i)
 	{
-		if (i == 0)
-		{
-			std::cout << "0 root " << arr[i] << std::endl;
-		}
-		else if (i > 0 && i < 3)
-		{
-			std::cout << "1 "; // Не могу додуматься как мне сделать так чтобы автоматически печатал правильную строку для тех или иных узлов
-			print_one_element(arr, size, i);
-		}
-		else if (i > 2 && i < 7)
-		{
-			std::cout << "2 ";
-			print_one_element(arr, size, i);
-		}
-		else if (i > 6 && i < 15)
-		{
-			std::cout << "3 ";
-			print_one_element(arr, size, i);
-		}
+		print_one_element(arr, size, i);
 	}
 }
 
