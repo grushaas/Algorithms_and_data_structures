@@ -2,9 +2,15 @@
 #include <cmath>
 #include <string>
 
-int parent_index(int* arr, int size, int i)
+int parent_element(int* arr, int size, int i)
 {
 	int value = arr[(i - 1) / 2];
+	return value;
+}
+
+int parent_index(int* arr, int size, int i)
+{
+	int value = (i - 1) / 2;
 	return value;
 }
 
@@ -17,7 +23,7 @@ void print_one_element(int* arr, int size, int i)
 {
 	if (i % 2)
 	{
-		std::cout << pyramid_level(arr, i) << " left(" << parent_index(arr, size, i) << ") " << arr[i] << std::endl;
+		std::cout << pyramid_level(arr, i) << " left(" << parent_element(arr, size, i) << ") " << arr[i] << std::endl;
 	}
 	else if (i == 0)
 	{
@@ -25,7 +31,7 @@ void print_one_element(int* arr, int size, int i)
 	}
 	else
 	{
-		std::cout << pyramid_level(arr, i) << " right(" << parent_index(arr, size, i) << ") " << arr[i] << std::endl;
+		std::cout << pyramid_level(arr, i) << " right(" << parent_element(arr, size, i) << ") " << arr[i] << std::endl;
 	}	
 }
 
@@ -107,7 +113,7 @@ bool is_there_a_parent(int* arr, int size, int i)
 
 	for (int j = 0; j < size; ++j)
 	{
-		if (value == arr[j])
+		if (value == j)
 		{
 			return true;
 		}
@@ -118,75 +124,70 @@ bool is_there_a_parent(int* arr, int size, int i)
 void adventures(int* arr, int size)
 {
 	std::string command;
+	int i = 0;
 
 	do
 	{
-		for (int i = 0; i < size; ++i)
+		std::cout << "Вы находитесь здесь: ";
+		print_one_element(arr, size, i);
+		
+		std::cout << "Введите команду: ";
+		std::cin >> command;
+
+		if (command == "up")
 		{
-			std::cout << "Вы находитесь здесь: ";
-			print_one_element(arr, size, i);
-			
-			std::cout << "Введите команду: ";
-			std::cin >> command;
-			if (command == "exit")
+			if (i > 0)
 			{
-				break;
-			}
-			else if (command == "up")
-			{
-				if (is_there_a_parent(arr, size, i))
+				std::cout << "OK" << std::endl;
+				if (i == 1)
 				{
-					std::cout << "OK" << std::endl;
-					if (i == 1)
-					{
-						i = parent_index(arr, size, i) - 2;
-					}
-					else if (i == 2)
-					{
-						i = parent_index(arr, size, i) - 3;
-					}
-					else
-					{
-						i = parent_index(arr, size, i) - 2;
-					}
+					i = parent_index(arr, size, i);
+				}
+				else if (i == 2)
+				{
+					i = parent_index(arr, size, i);
 				}
 				else
 				{
-					std::cout << "Ошибка: отсутствует родитель!" << std::endl;
-					i -= 1;
-				}
-			}
-			else if (command == "left")
-			{
-				if (is_there_a_left_child(arr, size, i))
-				{
-					std::cout << "OK" << std::endl;
-					i = left_children(i) - 1;
-				}
-				else
-				{
-					std::cout << "Ошибка: отсутствует левый ребенок!" << std::endl;
-					i -= 1;
-				}
-			}
-			else if (command == "right")
-			{
-				if (is_there_a_right_child(arr, size, i))
-				{
-					std::cout << "OK" << std::endl;
-					i = right_children(i) - 1;
-				}
-				else
-				{
-					std::cout << "Ошибка: отсутствует правый ребенок!" << std::endl;
-					i -= 1;
+					i = parent_index(arr, size, i);
 				}
 			}
 			else
 			{
-				std::cout << "Такой команды нет!" << std::endl;
-				i -= 1;
+				std::cout << "Ошибка: Отсутствует родитель." << std::endl;
 			}
+		}
+		else if (command == "left")
+		{
+			if (is_there_a_left_child(arr, size, i))
+			{
+				std::cout << "OK" << std::endl;
+				i = left_children(i);
+			}
+			else
+			{
+				std::cout << "Ошибка: отсутствует левый ребенок!" << std::endl;
+			}
+		}
+		else if (command == "right")
+		{
+			if (is_there_a_right_child(arr, size, i))
+			{
+				std::cout << "OK" << std::endl;
+				i = right_children(i);
+			}
+			else
+			{
+				std::cout << "Ошибка: отсутствует правый ребенок!" << std::endl;
+			}
+		}
+		else if(command == "exit")
+		{
+			std::cout << "Завершение работы программы." << std::endl;
+		}
+		else
+		{
+			std::cout << "Такой команды нет!" << std::endl;
 		}
 
 
