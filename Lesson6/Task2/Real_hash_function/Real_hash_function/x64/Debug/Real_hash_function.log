@@ -1,0 +1,3 @@
+﻿  main.cpp
+C:\My folder\Netology\Homework\Algorithms and data structures\Lessons\Lesson6\Task2\Real_hash_function\Real_hash_function\main.cpp(25,12): warning C4244: +=: преобразование "int_fast64_t" в "int", возможна потеря данных
+  Real_hash_function.vcxproj -> C:\My folder\Netology\Homework\Algorithms and data structures\Lessons\Lesson6\Task2\Real_hash_function\x64\Debug\Real_hash_function.exe
