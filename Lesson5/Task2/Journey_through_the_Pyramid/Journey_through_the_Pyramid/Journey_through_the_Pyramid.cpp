@@ -45,80 +45,24 @@ void print_pyramid(int* arr, int size)
 	}
 }
 
-int left_children(int i)
+int left_child_index(int i)
 {
-	if (i == 0)
-	{
-		int value = 1 + i;
-		return value;
-	}
-	int value = 2 * i + 1;
-	return value;
+	return 2 * i + 1;
 }
 
-int right_children(int i)
+int right_child_index(int i)
 {
-	if (i == 0)
-	{
-		int value = 2 + i;
-		return value;
-	}
-	int value = 2 * i + 2;
-	return value;
+	return 2 * i + 2;
 }
 
 bool is_there_a_left_child(int* arr, int size, int i)
 {
-	int value = left_children(i);
-	for (int j = 0; j < size; ++j)
-	{
-		if (arr[value] == arr[j])
-		{
-			return true;
-		}
-	}
-	return false;
+	return left_child_index(i) < size;
 }
 
 bool is_there_a_right_child(int* arr, int size, int i)
 {
-	int value = right_children(i);
-	for (int j = 0; j < size; ++j)
-	{
-		if (arr[value] == arr[j])
-		{
-			return true;
-		}
-	}
-	return false;
-}
-
-
-bool is_there_a_parent(int* arr, int size, int i)
-{
-	int value = 0;
-
-	if (i == 1)
-	{
-		value = i - 1;
-	}
-	else if (i == 2)
-	{
-		value = i - 2;
-	}
-	else
-	{
-		value = parent_index(arr, size, i);
-	}
-
-	for (int j = 0; j < size; ++j)
-	{
-		if (value == j)
-		{
-			return true;
-		}
-	}
-	return false;
+	return right_child_index(i) < size;
 }
 
 void adventures(int* arr, int size)
@@ -139,18 +83,7 @@ void adventures(int* arr, int size)
 			if (i > 0)
 			{
 				std::cout << "OK" << std::endl;
-				if (i == 1)
-				{
-					i = parent_index(arr, size, i);
-				}
-				else if (i == 2)
-				{
-					i = parent_index(arr, size, i);
-				}
-				else
-				{
-					i = parent_index(arr, size, i);
-				}
+				i = parent_index(arr, size, i);
 			}
 			else
 			{
@@ -162,7 +95,7 @@ void adventures(int* arr, int size)
 			if (is_there_a_left_child(arr, size, i))
 			{
 				std::cout << "OK" << std::endl;
-				i = left_children(i);
+				i = left_child_index(i);
 			}
 			else
 			{
@@ -174,7 +107,7 @@ void adventures(int* arr, int size)
 			if (is_there_a_right_child(arr, size, i))
 			{
 				std::cout << "OK" << std::endl;
-				i = right_children(i);
+				i = right_child_index(i);
 			}
 			else
 			{
