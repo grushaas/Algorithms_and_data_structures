@@ -1,27 +1,61 @@
 #include <iostream>
 #include <string>
 
+long long hash(const char* s)
+{
+	int P = 53;
+	long long ans = 0;
+	int mult = 1;
+	for (int i = 0; i < strlen(s); ++i)
+	{
+		int c = s[i];
+		ans += mult * c;
+		mult = mult * P;
+	}
+	return ans;
+}
+
 int find_substring_light_rabin_karp(const char* s1, const char* s2)
 {
 	bool approach = true;
-	for (int i = 0; i < strlen(s1); ++i)
-	{
-		for (int j = 0; j < strlen(s2); ++j)
-		{
-			if (s1[i + j] != s2[j])
-			{
-				approach = false;
-				break;
-			}
-			else
-			{
-				approach = true;
-			}
+	long long s2_hash = hash(s2);
+	long long h = 0;
+	int size1 = strlen(s1);
+	int size2 = strlen(s2);
 
-		}
-		if (approach)
+	for (int i = 0; i < size1; ++i)
+	{
+		if (i == 0)
 		{
-			return i;
+			h = hash(&s1[size1 - 1]);
+		}
+		else
+		{
+			h -= s1[i - 1];
+			h += s1[i + size1 - 1];
+		}
+
+		if (h != s2_hash)
+		{
+			approach = false;
+		}
+		else
+		{
+			for (int j = 0; j < size2; ++j)
+			{
+				if (s1[i + j] != s2[j])
+				{
+					approach = false;
+				}
+				else
+				{
+					approach = true;
+				}
+			}
+			if (approach)
+			{
+				return i;
+			}
 		}
 	}
 	return -1;
@@ -38,10 +72,10 @@ int main()
 	{
 		std::cout << "Enter the substring you want to find: ";
 		std::cin >> substring;
-		const char* c1 = string.c_str();
-		const char* c2 = substring.c_str();
+		const char* s1 = string.c_str();
+		const char* s2 = substring.c_str();
 
-		int found = find_substring_light_rabin_karp(c1, c2);
+		int found = find_substring_light_rabin_karp(s1, s2);
 
 		if (found != -1)
 		{
