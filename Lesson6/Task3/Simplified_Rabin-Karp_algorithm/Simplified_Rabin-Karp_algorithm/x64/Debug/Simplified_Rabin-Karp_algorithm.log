@@ -1,4 +1,4 @@
 ﻿  main.cpp
-C:\Netology\Homework\Algorithms and data structures\Lessons\Lesson6\Task3\Simplified_Rabin-Karp_algorithm\Simplified_Rabin-Karp_algorithm\main.cpp(23,24): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-C:\Netology\Homework\Algorithms and data structures\Lessons\Lesson6\Task3\Simplified_Rabin-Karp_algorithm\Simplified_Rabin-Karp_algorithm\main.cpp(24,24): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Netology\Homework\Algorithms and data structures\Lessons\Lesson6\Task3\Simplified_Rabin-Karp_algorithm\Simplified_Rabin-Karp_algorithm\main.cpp(55,26): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Netology\Homework\Algorithms and data structures\Lessons\Lesson6\Task3\Simplified_Rabin-Karp_algorithm\Simplified_Rabin-Karp_algorithm\main.cpp(56,28): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
   Simplified_Rabin-Karp_algorithm.vcxproj -> C:\Netology\Homework\Algorithms and data structures\Lessons\Lesson6\Task3\Simplified_Rabin-Karp_algorithm\x64\Debug\Simplified_Rabin-Karp_algorithm.exe

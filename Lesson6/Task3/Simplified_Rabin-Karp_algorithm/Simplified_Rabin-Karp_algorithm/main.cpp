@@ -1,63 +1,80 @@
 #include <iostream>
 #include <string>
 
-long long hash(const char* s)
+int hInit(int strLen)
 {
-	int P = 53;
-	long long ans = 0;
-	int mult = 1;
-	for (int i = 0; i < strlen(s); ++i)
+	int d = 53;
+	int p = 1000;
+	int h = 1;
+
+	for (int i = 1; i < strLen; i++)
 	{
-		int c = s[i];
-		ans += mult * c;
-		mult = mult * P;
+		h = (h * d) % p;
 	}
-	return ans;
+
+	return h;
 }
 
-int find_substring_light_rabin_karp(const char* s1, const char* s2)
+int ringHash(const char* str, int strLen, int prevHash, int* h)
 {
-	bool approach = true;
-	long long s2_hash = hash(s2);
-	long long h = 0;
-	int size1 = strlen(s1);
-	int size2 = strlen(s2);
+	int d = 53;
+	int p = 1000;
 
-	for (int i = 0; i < size1; ++i)
+	if (*h == 0)
 	{
-		if (i == 0)
+		*h = hInit(strLen);
+	}
+
+	if (prevHash == 0)
+	{
+		for (int i = 0; i < strLen; i++)
 		{
-			h = hash(&s1[size1 - 1]);
+			prevHash += (d * prevHash + (int)str[i]) % p;
 		}
-		else
+		if (prevHash < 0)
 		{
-			h -= s1[i - 1];
-			h += s1[i + size1 - 1];
+			prevHash += p;
 		}
 
-		if (h != s2_hash)
-		{
-			approach = false;
-		}
-		else
-		{
-			for (int j = 0; j < size2; ++j)
-			{
-				if (s1[i + j] != s2[j])
-				{
-					approach = false;
-				}
-				else
-				{
-					approach = true;
-				}
-			}
-			if (approach)
-			{
-				return i;
-			}
-		}
+		return prevHash;
 	}
+	else
+	{
+		int hash = (d * (prevHash - (int)str[0] * (*h)) + (int)str[strLen]) % p;
+		if (hash < 0)
+		{
+			hash += p;
+		}
+
+		return hash;
+	}
+}
+
+int RabinKarpSearch(const char* text, const char* str)
+{
+	int strLen = strlen(str);
+	int textLen = strlen(text);
+	int h = 0;
+
+	int strHash = ringHash(str, strLen, 0, &h);
+	int textHash = ringHash(text, strLen, 0, &h);
+
+	for (int k = 0; k <= (textLen); k++)
+	{
+		if (strHash == textHash)
+		{
+			for (int i = 0; (i < strLen) && (str[i] == text[k + i]); i++)
+			{
+				if (i == (strLen - 1))
+				{
+					return k;
+				}
+			}
+		}
+
+		textHash = ringHash(&text[k], strLen, textHash, &h);
+	}
+
 	return -1;
 }
 
@@ -75,7 +92,7 @@ int main()
 		const char* s1 = string.c_str();
 		const char* s2 = substring.c_str();
 
-		int found = find_substring_light_rabin_karp(s1, s2);
+		int found = RabinKarpSearch(s1, s2);
 
 		if (found != -1)
 		{
